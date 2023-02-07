@@ -1,6 +1,7 @@
 //similar to java eg import java.util.Array;
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component'; //importing another class into this class
+import { ActivatedRoute } from '@angular/router'; 
 
 @Component({
   selector: 'app-welcome',
@@ -16,15 +17,22 @@ export class WelcomeComponent implements OnInit {
   //Typescript is smart you ca remove the type and it will understand
   message : string = 'Hello World!'
 
+  userName : string = ''
+
+  //Activated route can handle taking in a parameter in the URL
 
   //public test() {
-  constructor() { 
-
+  constructor(private route: ActivatedRoute) { 
+   
   }
 
   //void init in java
   //this method wont return anything
   ngOnInit() : void {
     console.log(this.message)
+    
+    this.userName = this.route.snapshot.params['name']
+    
+    console.log(this.route.snapshot.params['name'])
   }
 }
