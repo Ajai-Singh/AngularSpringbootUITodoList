@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { Routes,RouterModule } from '@angular/router';
 import { InvalidUrlComponent } from './invalid-url/invalid-url.component';
 import { ListTodosComponent } from './list-todos/list-todos.component';
+import { MenuComponent } from './menu/menu.component';
+import { FooterComponent } from './footer/footer.component';
 
 //Everytime we create a new component we add it here
 //Note that we add all the components above error one
@@ -19,6 +21,8 @@ const routes: Routes = [
   { path:'login', component: LoginComponent},
   { path:'welcome/:name', component: WelcomeComponent},
   { path:'todos', component:ListTodosComponent},
+  // { path: 'menu', component:MenuComponent},
+  // { path: 'menu', component:FooterComponent},
 
   { path:'**', component: InvalidUrlComponent} //Anything other than a valid link will be sent to the invalid url compoent
   //Anything other than a valid String will be known as **
@@ -30,7 +34,9 @@ const routes: Routes = [
     WelcomeComponent,
     LoginComponent,
     InvalidUrlComponent,
-    ListTodosComponent
+    ListTodosComponent,
+    MenuComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

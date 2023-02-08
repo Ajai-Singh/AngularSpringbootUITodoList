@@ -1,16 +1,25 @@
-<table border="1">
-  <caption>my todo list</caption>
+<h1>My Todos</h1>
+<div class="container">
+<table class="table">
   <thead>
     <tr>
-      <th>id</th>
-      <th>description</th>
+      <th>Id</th>
+      <th>Description</th>
+      <th>Completion Status</th>
+      <th>Target Date</th>
     </tr>
   </thead>
 
   <tbody>
-    <tr>
+    <!-- ngFor is an example of a directive in angular - classes that add new  -->
+    <!-- java comparitive = for(Todo todo : todos) -->
+    <tr *ngFor="let todo of todos">
       <td>{{todo.id}}</td>
       <td>{{todo.description}}</td>
+      <td>{{todo.done}}</td>
+      <td>{{todo.targetDate | date | uppercase}}</td>
     </tr>
+    <!-- for loop around tr block -->
   </tbody>
 </table>
+</div>

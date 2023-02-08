@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component'; //importing another class into this class
 import { ActivatedRoute } from '@angular/router'; 
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'app-welcome',
@@ -22,7 +23,7 @@ export class WelcomeComponent implements OnInit {
   //Activated route can handle taking in a parameter in the URL
 
   //public test() {
-  constructor(private route: ActivatedRoute) { 
+  constructor(private activatedRoute: ActivatedRoute, private router : Router) { 
    
   }
 
@@ -31,8 +32,12 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() : void {
     console.log(this.message)
     
-    this.userName = this.route.snapshot.params['name']
+    this.userName = this.activatedRoute.snapshot.params['name']
     
-    console.log(this.route.snapshot.params['name'])
+    console.log(this.activatedRoute.snapshot.params['name'])
   }
+
+  // viewTodos() {
+  //   this.router.navigate(['todos'])
+  // }
 }
