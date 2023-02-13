@@ -4,13 +4,16 @@
           Test</a></div>
       
         <ul class="navbar-nav">
-            <li><a href="/welcome/Ajai" class="nav-link">Home</a></li>
-            <li><a href="/todos" class="nav-link">Todos</a></li>
+            <!-- href reloads the page -->
+            <!-- replace href with routerLink -->
+            <!-- router link will open the new page without loading it in -->
+            <li><a routerLink="/welcome/Ajai" class="nav-link">Home</a></li>
+            <li><a routerLink="/todos" class="nav-link">Todos</a></li>
         </ul>
 
         <ul class="navbar-nav navbar-collapse justify-content-end">
-                <li><a href="/login" class="nav-link">Login</a></li>
-                <li><a href="" class="nav-link">Logout</a></li>
+                <li><a *ngIf="authService.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+                <li><a *ngIf="!authService.isUserLoggedIn()" routerLink="/login" class="nav-link" (click)=removeSessionStorage()>Logout</a></li>
         </ul>
       
     </nav>
