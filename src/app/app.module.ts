@@ -20,7 +20,7 @@ const routes: Routes = [
   { path:'login', component: LoginComponent}, 
   { path:'logout', component: LoginComponent},
   { path:'welcome/:name', component: WelcomeComponent, canActivate:[AuthGuard]},
-  { path:'todos', component:ListTodosComponent},
+  { path:'todos', component:ListTodosComponent, canActivate:[AuthGuard]},
 
   { path:'**', component: InvalidUrlComponent} //Anything other than a valid link will be sent to the invalid url compoent
   //Anything other than a valid String will be known as **
