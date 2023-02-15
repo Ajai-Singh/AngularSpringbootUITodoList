@@ -11,11 +11,13 @@ export class HardcodedAuthService {
       sessionStorage.setItem('authenticatedUser', userName)
       console.log('After ' + this.isUserLoggedIn)
       return true
+    } else {
+      return false
     }
-    return false
   }
 
   isUserLoggedIn() {
-    return sessionStorage.getItem('authenticatedUser') === null
+    let user = sessionStorage.getItem('authenticatedUser')
+    return !(user === null)
   }
 }
