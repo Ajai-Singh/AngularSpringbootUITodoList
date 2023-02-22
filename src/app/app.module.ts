@@ -11,6 +11,8 @@ import { MenuComponent } from './menu/menu.component';
 import { FooterComponent } from './footer/footer.component';
 import { AuthGuard } from './auth/auth.guard';
 import { HardcodedAuthService } from './service/hardcoded-auth.service';
+import { BackendService } from './service/backend-service.service';
+import { HttpClientModule } from '@angular/common/http';
 
 //Everytime we create a new component we add it here
 //Note that we add all the components above error one
@@ -39,10 +41,11 @@ const routes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    [RouterModule.forRoot(routes)]
+    [RouterModule.forRoot(routes)],
+    HttpClientModule
   ],
   exports: [RouterModule],
-  providers: [AuthGuard, HardcodedAuthService],
+  providers: [AuthGuard, HardcodedAuthService, BackendService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

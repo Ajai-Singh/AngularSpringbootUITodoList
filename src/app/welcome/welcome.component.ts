@@ -3,11 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../app.component'; //importing another class into this class
 import { ActivatedRoute } from '@angular/router'; 
 import { Router } from '@angular/router'; 
+import { BackendService } from '../service/backend-service.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.css']
+  styleUrls: ['./welcome.component.css'],
+  providers: [BackendService, HttpClient]
 })
 
 //public class WelcomeComponent implements repo {
@@ -23,7 +26,8 @@ export class WelcomeComponent implements OnInit {
   //Activated route can handle taking in a parameter in the URL
 
   //public test() {
-  constructor(private activatedRoute: ActivatedRoute, private router : Router) { 
+  constructor(private activatedRoute: ActivatedRoute, private router : Router,
+    private backendService : BackendService) { 
    
   }
 
@@ -31,13 +35,12 @@ export class WelcomeComponent implements OnInit {
   //this method wont return anything
   ngOnInit() : void {
     console.log(this.message)
-    
-    this.userName = this.activatedRoute.snapshot.params['name']
-    
+    this.userName = this.activatedRoute.snapshot.params['name']  
     console.log(this.activatedRoute.snapshot.params['name'])
   }
 
-  // viewTodos() {
-  //   this.router.navigate(['todos'])
-  // }
+  TriggerBackEndService() {
+    console.log("Backend service trigger")
+    this.backendService.executeHelloService()
+  }
 }
