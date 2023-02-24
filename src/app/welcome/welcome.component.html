@@ -7,3 +7,9 @@
 <div class="container">
 <button (click)=TriggerBackEndService() class="btn btn-success" type="button"> Backend Service</button>
 </div>
+
+<br>
+
+<div class="container" *ngIf='helloWorldMessage'>
+  <h2>back end message: {{helloWorldMessage}}</h2>
+</div>

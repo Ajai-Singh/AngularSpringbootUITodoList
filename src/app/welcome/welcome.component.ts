@@ -1,6 +1,5 @@
 //similar to java eg import java.util.Array;
 import { Component, OnInit } from '@angular/core';
-import { AppComponent } from '../app.component'; //importing another class into this class
 import { ActivatedRoute } from '@angular/router'; 
 import { Router } from '@angular/router'; 
 import { BackendService } from '../service/backend-service.service';
@@ -23,6 +22,8 @@ export class WelcomeComponent implements OnInit {
 
   userName : string = ''
 
+  helloWorldMessage : string
+
   //Activated route can handle taking in a parameter in the URL
 
   //public test() {
@@ -40,7 +41,19 @@ export class WelcomeComponent implements OnInit {
   }
 
   TriggerBackEndService() {
-    console.log("Backend service trigger")
-    this.backendService.executeHelloService()
+    this.backendService.executeHelloService().subscribe(
+      response => this.handleSuccessfulHelloWorld(response), 
+      error => this.handleErrorResponse(error)
+      )
+  }
+
+  handleSuccessfulHelloWorld(response) {
+    console.log(response)
+    this.helloWorldMessage = response
+  }
+
+  handleErrorResponse(error) {
+    console.log(error)
+    this.helloWorldMessage = error.message
   }
 }

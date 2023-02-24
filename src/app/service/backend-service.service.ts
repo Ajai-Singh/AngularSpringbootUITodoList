@@ -1,5 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { ResponseType } from '@angular/http';
+
+export class HelloWorld {
+  constructor(public message:string) {
+    
+  }
+}
+
+export class Todo {
+  constructor() {
+
+  }
+}
 
 @Injectable()
 export class BackendService {
@@ -23,8 +36,42 @@ export class BackendService {
     //console.log('hello back end service triggered')
 
     //this is a asycn backend call
-    return this.http.get('http://localhost:8080/helloWorld', { responseType: 'text' }).subscribe(
-      response => console.log(response)
-    )
+
+    //instead of passing in the actual value we can wrap this get call in a method
+    //pass the method param as ${}
+    //instead of regular '' use a back tick ``
+    //this is a lot easier than java in java you have to create a hashmap with a key value pair
+    //and add it using a queryparam call to the endpoint url
+    return this.http.get('http://localhost:8080/helloWorld', {responseType: 'text'})
   }
+
+  executeGetWithParam(name) {
+    return this.http.get<HelloWorld>(`http://localhost:8080/helloWorld/${name}`)
+  }
+
+  //GET API call
+  //Returns a list of Todos from backend service
+  getTodos() {
+    return this.http.get<Todo>('http://localhost:8080/todos')
+  }
+
+
+  //POST API call
+  //Created Todo object and persists to DB
+  createTodo() {
+    return this.http.get<Todo>('http://localhost:8080/createTodo')
+  }
+
+  //PUT API call
+  //Updates Todo in DB
+  updateTodo(todo) {
+    return this.http.get<Todo>('http://localhost:8080/update')
+  }
+
+  //DELETE API call
+  //Deleted todo in DB
+  delete(todo) {
+    return this.http.get<Todo>('http://localhost:8080/delete')
+  }
+
 }
