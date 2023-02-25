@@ -20,7 +20,7 @@ export class WelcomeComponent implements OnInit {
   //Typescript is smart you ca remove the type and it will understand
   message : string = 'Hello World!'
 
-  userName : string = ''
+  userName : string
 
   helloWorldMessage : string
 

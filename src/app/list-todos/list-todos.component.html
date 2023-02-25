@@ -1,5 +1,9 @@
 <h1>My Todos</h1>
 <div class="container">
+
+  <div class="alert alert-success" *ngIf='deleteResponse'>{{deleteResponse}}</div>
+
+
   <table class="table">
     <thead>
       <tr>
@@ -7,19 +11,33 @@
         <th>Description</th>
         <th>Completion Status</th>
         <th>Target Date</th>
+        <th>User Name</th>
+        <th>Update</th>
+        <th>Delete</th>
       </tr>
     </thead>
 
+    <!-- | date | uppercase -->
     <tbody>
       <!-- ngFor is an example of a directive in angular - classes that add new  -->
       <!-- java comparitive = for(Todo todo : todos) -->
       <tr *ngFor="let todo of todos">
         <td>{{todo.id}}</td>
         <td>{{todo.description}}</td>
-        <td>{{todo.done}}</td>
-        <td>{{todo.targetDate | date | uppercase}}</td>
+        <td>{{todo.status}}</td>
+        <td>{{todo.completionDate}}</td>
+        <td>{{todo.userName}}</td>
+        <td>
+          <button (click)="updateTodo(todo)" class="btn btn-success" type="button">Update</button>
+        </td>
+        <td>
+          <button (click)="deleteTodo(todo)" class="btn btn-warning" type="button">Delete</button>
+        </td>
       </tr>
       <!-- for loop around tr block -->
     </tbody>
   </table>
+  <div class="row">
+    <button (click)="createTodo()" class="btn btn-success" type="button">Create Todo</button>
+  </div>
 </div>

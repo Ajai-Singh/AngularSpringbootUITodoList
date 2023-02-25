@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ResponseType } from '@angular/http';
 
 export class HelloWorld {
   constructor(public message:string) {
@@ -9,7 +8,13 @@ export class HelloWorld {
 }
 
 export class Todo {
-  constructor() {
+  constructor(
+    public id : number,
+    public description : string,
+    public status : boolean,
+    public completionDate : Date,
+    public userName : string
+  ) {
 
   }
 }
@@ -51,27 +56,37 @@ export class BackendService {
 
   //GET API call
   //Returns a list of Todos from backend service
-  getTodos() {
-    return this.http.get<Todo>('http://localhost:8080/todos')
+  getTodos(userName) {
+    return this.http.get<Todo>(`http://localhost:8080/todos/${userName}`)
   }
-
 
   //POST API call
   //Created Todo object and persists to DB
-  createTodo() {
-    return this.http.get<Todo>('http://localhost:8080/createTodo')
+  createTodo(todo) {
+    console.log(todo)
+    return this.http.post('http://localhost:8080/createTodo', todo)
   }
 
   //PUT API call
   //Updates Todo in DB
   updateTodo(todo) {
-    return this.http.get<Todo>('http://localhost:8080/update')
+    return this.http.put('http://localhost:8080/update', todo)
   }
 
   //DELETE API call
   //Deleted todo in DB
   delete(todo) {
-    return this.http.get<Todo>('http://localhost:8080/delete')
+    console.log(todo)
+    return this.http.delete('http://localhost:8080/delete', todo)
   }
 
+  deleteById(id) {
+    console.log(id)
+    return this.http.delete(`http://localhost:8080/deleteById/${id}`)
+  }
+
+  getTodo(id) {
+    console.log(id)
+    return this.http.get<Todo>(`http://localhost:8080/todo/${id}`)
+  }
 }

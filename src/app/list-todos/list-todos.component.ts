@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { BackendService } from '../service/backend-service.service';
+import { Router } from '@angular/router';
 
 export class Todo {
   constructor(
     public id : number,
     public description : string,
-    public done : boolean,
-    public targetDate : Date
+    public status : boolean,
+    public completionDate : Date,
+    public userName : string
   ) {
 
   }
@@ -32,15 +34,18 @@ export class ListTodosComponent implements OnInit {
   //   description : 'todo object creation'
   // }
 
-  constructor(private backendService : BackendService) { }
+  deleteResponse : string
+
+  constructor(private backendService : BackendService,
+    private router : Router) { }
 
   ngOnInit() {
-    //console.log(this.todos)
+    console.log(this.todos)
     this.getTodos()
   }
 
   getTodos() {
-    this.backendService.getTodos().subscribe(
+    this.backendService.getTodos(sessionStorage.getItem('authenticatedUser')).subscribe(
       response => this.handleSuccessfulGetTodos(response), 
       error => this.handleErrorGetTodos(error)
       )
@@ -53,5 +58,27 @@ export class ListTodosComponent implements OnInit {
 
   handleErrorGetTodos(error) {
     console.log(error)
+  }
+
+  //passing in -1 as id as we want to reuse the update todo form which takes an id
+  createTodo(todo) {
+    this.router.navigate(['todo', -1])
+  }
+
+  deleteTodo(todo) {
+    console.log(todo)
+    this.backendService.deleteById(todo.id).subscribe( 
+      (data) =>{
+        this.deleteResponse = 'Todo Deleted';
+        this.ngOnInit();
+      }),
+      error => {
+        this.deleteResponse = 'Error Occurred';
+        console.log("Error");
+      }   
+  }
+
+  updateTodo(todo) {
+    this.router.navigate(['todo', todo.id])
   }
 }
