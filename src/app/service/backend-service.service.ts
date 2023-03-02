@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class HelloWorld {
   constructor(public message:string) {
@@ -47,34 +47,24 @@ export class BackendService {
     //instead of regular '' use a back tick ``
     //this is a lot easier than java in java you have to create a hashmap with a key value pair
     //and add it using a queryparam call to the endpoint url
-    return this.http.get('http://localhost:8080/helloWorld', {responseType: 'text'})
+    const headers = new HttpHeaders().set('Authorization', 'Basic ' + btoa('test:test'));
+
+    return this.http.get('http://localhost:8080/helloWorld', { headers , responseType: 'text'})
   }
 
-  executeGetWithParam(name) {
-    return this.http.get<HelloWorld>(`http://localhost:8080/helloWorld/${name}`)
-  }
-
-  //GET API call
-  //Returns a list of Todos from backend service
   getTodos(userName) {
-    return this.http.get<Todo>(`http://localhost:8080/todos/${userName}`)
+    return this.http.get<Todo>(`http://localhost:8080/todos/${userName}`, this.basicAuthorization())
   }
 
-  //POST API call
-  //Created Todo object and persists to DB
   createTodo(todo) {
     console.log(todo)
-    return this.http.post('http://localhost:8080/createTodo', todo)
+    return this.http.post('http://localhost:8080/createTodo', todo, this.basicAuthorization())
   }
 
-  //PUT API call
-  //Updates Todo in DB
   updateTodo(todo) {
-    return this.http.put('http://localhost:8080/update', todo)
+    return this.http.put('http://localhost:8080/update', todo, this.basicAuthorization())
   }
 
-  //DELETE API call
-  //Deleted todo in DB
   delete(todo) {
     console.log(todo)
     return this.http.delete('http://localhost:8080/delete', todo)
@@ -82,11 +72,20 @@ export class BackendService {
 
   deleteById(id) {
     console.log(id)
-    return this.http.delete(`http://localhost:8080/deleteById/${id}`)
+    return this.http.delete(`http://localhost:8080/deleteById/${id}`, this.basicAuthorization())
   }
 
   getTodo(id) {
-    console.log(id)
-    return this.http.get<Todo>(`http://localhost:8080/todo/${id}`)
+    return this.http.get<Todo>(`http://localhost:8080/todo/${id}`, this.basicAuthorization())
+  }
+  
+  basicAuthorization() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type' :  'application/json',
+        'Authorization': 'Basic ' + btoa('test:test')
+      }),
+    };
+    return httpOptions;
   }
 }

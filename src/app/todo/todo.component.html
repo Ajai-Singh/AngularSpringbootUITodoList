@@ -7,7 +7,7 @@
   </h1>
 
 <!-- if the form has any invalid data we will not be able to submit the form -->
-<form (ngSubmit)="!todoForm.invalid && updateTodo()" #todoForm="ngForm">
+<form (ngSubmit)="!todoForm.invalid && updateTodo()" #todoForm="ngForm" *ngIf="todo">
     <fieldset class="form-group">
     <label>Description</label>
     <!-- ngmodel two way binding allows us to not have to update it in typescript class -->
@@ -25,7 +25,6 @@
       (ngModelChange)="todo.completionDate = $event"
       name = "completionDate" required = "required">
     </fieldset>
-
   <button type="submit" class="btn btn-success">Save Todo</button>
 </form>
 </div>

@@ -36,7 +36,9 @@ export class TodoComponent implements OnInit {
     //.subscribe is async which means when ngOnInit loads the UI the todo object might not have
     //been fetched in time so it might be null
     //we can avoid console errors by passing in a dummy value at the start
-    
+
+    this.todo = new Todo(-1, '', false, new Date(), sessionStorage.getItem('authenticatedUser'))
+
     this.id = this.activatedRoute.snapshot.params['id']
 
     //checking to see if id is = -1
@@ -44,14 +46,14 @@ export class TodoComponent implements OnInit {
     if(this.id != -1) {
     this.backendService.getTodo(this.id).subscribe( 
       (response) => {
+        console.log(this.id);
         console.log('todo fetched');
-        this.todo = new Todo(this.id, 'test', false, new Date(), 'ajai')
-        this.todo = response
+        this.todo = response;
       }),
       error => {
         console.log("Error");
       }
-  }
+    }
 }
 
   updateTodo() {
